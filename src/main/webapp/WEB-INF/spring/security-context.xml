@@ -75,11 +75,23 @@
 	
 	<!-- 12. JDBC 기반 계정 관리 -->
 	<!-- 12. 미리 정해진 구조의 DB 스키마 사용 -->
+	<!-- 
 	<security:authentication-manager> 
 		<security:authentication-provider>
 			<security:jdbc-user-service data-source-ref="dataSource"/>
-			<!-- 12-1. PasswordEncoder 추가 -->
-			<!-- <security:password-encoder ref="customNoOpPasswordEncoder"/>  -->
+			12-1. PasswordEncoder 추가
+			<security:password-encoder ref="customNoOpPasswordEncoder"/>
+		</security:authentication-provider>
+	</security:authentication-manager> 
+	-->
+	
+	<!-- 16. 사용자가 직접 만든 구조의 스키마 사용(적용) -->
+	<security:authentication-manager> 
+		<security:authentication-provider>
+			<security:jdbc-user-service data-source-ref="dataSource" 
+			users-by-username-query="select memberid as username, memberpw as password, enabled from member where memberid = ?" 
+			authorities-by-username-query="select memberid as username, auth as authority from member_auth where memberid = ?" />
+			<security:password-encoder ref="bCryptPasswordEncoder"/>
 		</security:authentication-provider>
 	</security:authentication-manager> 
 	

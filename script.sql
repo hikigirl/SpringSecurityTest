@@ -39,9 +39,12 @@ create table member (
     membername varchar2(50) not null,       -- 이름(추가)
     email varchar2(100) not null,           -- 이메일(추가)
     gender char(1) not null,                -- 성별(추가)
-    enabled char(1) not null,               -- 활동유무(enabled)
+    enabled char(1) default '1' not null,   -- 활동유무(enabled)
     regdate date default sysdate not null   -- 회원가입 날짜(추가)
 );
+
+drop table member;
+
 
 create table member_auth (
     memberid varchar2(50) not null,         -- ID(FK)
@@ -49,5 +52,16 @@ create table member_auth (
 	constraint fk_member_auth foreign key(memberid) references member(memberid)
 );
 
+insert into member_auth (memberid, auth) values ('dog', 'ROLE_MEMBER');     
+insert into member_auth (memberid, auth) values ('cat', 'ROLE_MEMBER');   
+insert into member_auth (memberid, auth) values ('tiger', 'ROLE_ADMIN'); 
+insert into member_auth (memberid, auth) values ('tiger', 'ROLE_MEMBER');
+
+commit;
+
 select * from member;
 select * from member_auth;
+
+select memberid as username, memberpw as password, enabled from member where memberid = 'cat';
+
+select memberid as username, auth as authority from member_auth where memberid = ?;

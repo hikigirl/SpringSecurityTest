@@ -1,0 +1,52 @@
+# Created by https://www.toptal.com/developers/gitignore/api/java,eclipse,maven
+# Edit at https://www.toptal.com/developers/gitignore?templates=java,eclipse,maven
+
+### Eclipse ###
+# Eclipse/STS 관련 설정 파일
+.settings/
+.classpath
+.project
+.springBeans
+*.launch
+
+### Java ###
+# 컴파일된 클래스 파일
+*.class
+
+# 로그 파일
+*.log
+logs/
+
+# 패키지 파일
+*.jar
+*.war
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# 가상 머신 크래시 리포트
+hs_err_pid*
+
+### Maven ###
+# Maven 빌드 출력 디렉터리 (가장 중요)
+target/
+
+# Maven 관련 임시 파일
+pom.xml.tag
+pom.xml.next
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+
+### OS ###
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+desktop.ini
+
+# End of https://www.toptal.com/developers/gitignore/api/java,eclipse,maven

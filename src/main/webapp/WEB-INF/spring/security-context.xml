@@ -12,6 +12,9 @@
 	<!-- 11. 로그인 후 처리 핸들러 연결, 로그인 성공 핸들러 -->
 	<bean id="customLoginSuccessHandler" class="com.test.java.auth.CustomLoginSuccessHandler"></bean>
 	
+	<!-- 13. PasswordEncoder bean -->
+	<bean id="customNoOpPasswordEncoder" class="com.test.java.auth.CustomNoOpPasswordEncoder"></bean>
+	
 	<!-- 3. 기본 설정 -->
 	<!-- 
 	<security:http>
@@ -55,13 +58,26 @@
 	</security:http>
 	
 	<!-- 7. 단순 로그인 구현 -->
-	<security:authentication-manager> <!-- 최고 관리자 -->
-		<security:authentication-provider> <!-- 정보 제공자 -->
-			<security:user-service> <!-- user와 password를 관리 -->
-				<!-- security:user 태그 하나 = 유저 한명 -->
+	<!-- 
+	<security:authentication-manager> 최고 관리자
+		<security:authentication-provider> 정보 제공자
+			<security:user-service> user와 password를 관리
+				security:user 태그 하나 = 유저 한명
 				<security:user name="hong" password="{noop}1111" authorities="ROLE_MEMBER"/>
 				<security:user name="test" password="{noop}1111" authorities="ROLE_MEMBER,ROLE_ADMIN"/>
 			</security:user-service>
 		</security:authentication-provider>
-	</security:authentication-manager>
+	</security:authentication-manager> 
+	-->
+	
+	<!-- 12. JDBC 기반 계정 관리 -->
+	<!-- 12-1. 미리 정해진 구조의 DB 스키마 사용 -->
+	<security:authentication-manager> 
+		<security:authentication-provider>
+			<security:jdbc-user-service data-source-ref="dataSource"/>
+			<!-- 13. PasswordEncoder 추가 -->
+			<security:password-encoder ref="customNoOpPasswordEncoder"/> 
+		</security:authentication-provider>
+	</security:authentication-manager> 
+	
 </beans>

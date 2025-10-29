@@ -19,17 +19,21 @@
 #### 파일, 패키지
 
 ##### src/main/java - Controller
-- com.test.socket.controller
-  - `SocketController.java`: jsp 띄우기 용(그냥 컨트롤러)
-  - `ChatController.java`
-- com.test.socket.server
-  - `SocketServer.java`: 서버
-  - `ChatServer.java`
-- com.test.socket.domain
-  - `Message.java`: DTO 역할
+- com.test.java.model
+  - `SecurityMapper.java`(I)
+
+- com.test.java.server
+  - `.java`
+  - `.java`
+- com.test.java.domain
+  - `.java`: 
+
+##### src/test/java - 단위테스트
+- com.test.java.model
+  - `DBTests.java`: 인터페이스 매퍼 단위테스트
 
 ##### src/main/webapp - View
 - WEB-INF/views
-  - `test.jsp`: 클라이언트
-  - `index.jsp`: 접속 화면(대화명 입력 + 단톡방 들어가기)
-  - `chat.jsp`: 대화 화면
+  - `.jsp`: 클라이언트
+  - `.jsp`: 접속 화면(대화명 입력 + 단톡방 들어가기)
+  - `.jsp`: 대화 화면

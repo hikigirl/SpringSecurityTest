@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	<!-- 스프링 시큐리티의 모든 설정 -->
+	
+	<!-- 8-1. 403 핸들러(XML방식) -->
+	<bean id="customAccessDeniedHandler" class="com.test.java.auth.CustomAccessDeniedHandler"></bean>
+	
+	<!-- 11. 로그인 후 처리 핸들러 연결, 로그인 성공 핸들러 -->
+	<bean id="customLoginSuccessHandler" class="com.test.java.auth.CustomLoginSuccessHandler"></bean>
+	
+	<!-- 3. 기본 설정 -->
+	<!-- 
+	<security:http>
+		<security:form-login/>
+	</security:http>
+	
+	<security:authentication-manager></security:authentication-manager>
+	-->
+	<!-- 3. 기본 설정 -->
+	
+	<!--
+		6. 로그인/로그아웃 구현
+		- 기본 로그인 설정 : 인증 + 허가
+	-->
+	<security:http>
+		<!-- 허가 -->
+		<!-- <security:intercept-url pattern="URL" access="허가"/> -->
+		<security:intercept-url pattern="/index.do" access="permitAll"/>
+		<security:intercept-url pattern="/member.do" access="hasRole('ROLE_MEMBER')"/>
+		<security:intercept-url pattern="/admin.do" access="hasRole('ROLE_ADMIN')"/>
+		
+		<!-- 8.2 403 Forbidden 처리 -->
+		<!-- <security:access-denied-handler error-page="/accesserror.do"/> -->
+		
+		<!-- 8.1 403 Forbidden 처리(핸들러) -->
+		<security:access-denied-handler ref="customAccessDeniedHandler"/>
+		<!-- 9. 기본설정: 자동 생성 로그인 페이지 사용 -->
+		<!-- <security:form-login/>-->
+		<!-- 9. 커스텀 로그인 페이지 생성 -->
+		<!-- <security:form-login login-page="/customlogin.do"/> -->
+		
+		<!-- 9-1. CSRF 공격에 대한 방어를 무시 -->
+		<!-- <security:csrf disabled="true"/> -->
+				
+		<!-- 10. 로그아웃 처리 -->
+		<security:logout logout-url="/customlogout.do" invalidate-session="true" logout-success-url="/index.do"/>
+		
+		<!-- 11. 로그인 후 처리 핸들러 연결 -->
+		<security:form-login login-page="/customlogin.do" authentication-success-handler-ref="customLoginSuccessHandler"/>
+		
+	</security:http>
+	
+	<!-- 7. 단순 로그인 구현 -->
+	<security:authentication-manager> <!-- 최고 관리자 -->
+		<security:authentication-provider> <!-- 정보 제공자 -->
+			<security:user-service> <!-- user와 password를 관리 -->
+				<!-- security:user 태그 하나 = 유저 한명 -->
+				<security:user name="hong" password="{noop}1111" authorities="ROLE_MEMBER"/>
+				<security:user name="test" password="{noop}1111" authorities="ROLE_MEMBER,ROLE_ADMIN"/>
+			</security:user-service>
+		</security:authentication-provider>
+	</security:authentication-manager>
+</beans>

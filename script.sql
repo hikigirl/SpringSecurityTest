@@ -30,3 +30,24 @@ commit;
 select * from users;
 
 select * from authorities;
+
+
+-----------------------------------------------
+create table member (
+    memberid varchar2(50) primary key,      --아이디(username)
+    memberpw varchar2(100) not null,        -- 암호(password)암호화하는 길이 생각해서 넉넉히
+    membername varchar2(50) not null,       -- 이름(추가)
+    email varchar2(100) not null,           -- 이메일(추가)
+    gender char(1) not null,                -- 성별(추가)
+    enabled char(1) not null,               -- 활동유무(enabled)
+    regdate date default sysdate not null   -- 회원가입 날짜(추가)
+);
+
+create table member_auth (
+    memberid varchar2(50) not null,         -- ID(FK)
+	auth varchar2(50) not null,        -- 권한(ROLE_XXX)
+	constraint fk_member_auth foreign key(memberid) references member(memberid)
+);
+
+select * from member;
+select * from member_auth;

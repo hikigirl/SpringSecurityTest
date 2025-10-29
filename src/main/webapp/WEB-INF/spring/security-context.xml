@@ -12,7 +12,7 @@
 	<!-- 11. 로그인 후 처리 핸들러 연결, 로그인 성공 핸들러 -->
 	<bean id="customLoginSuccessHandler" class="com.test.java.auth.CustomLoginSuccessHandler"></bean>
 	
-	<!-- 13. PasswordEncoder bean -->
+	<!-- 12-1. PasswordEncoder bean -->
 	<bean id="customNoOpPasswordEncoder" class="com.test.java.auth.CustomNoOpPasswordEncoder"></bean>
 	
 	<!-- 3. 기본 설정 -->
@@ -71,11 +71,11 @@
 	-->
 	
 	<!-- 12. JDBC 기반 계정 관리 -->
-	<!-- 12-1. 미리 정해진 구조의 DB 스키마 사용 -->
+	<!-- 12. 미리 정해진 구조의 DB 스키마 사용 -->
 	<security:authentication-manager> 
 		<security:authentication-provider>
 			<security:jdbc-user-service data-source-ref="dataSource"/>
-			<!-- 13. PasswordEncoder 추가 -->
+			<!-- 12-1. PasswordEncoder 추가 -->
 			<security:password-encoder ref="customNoOpPasswordEncoder"/> 
 		</security:authentication-provider>
 	</security:authentication-manager> 

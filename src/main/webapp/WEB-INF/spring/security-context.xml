@@ -12,8 +12,11 @@
 	<!-- 11. 로그인 후 처리 핸들러 연결, 로그인 성공 핸들러 -->
 	<bean id="customLoginSuccessHandler" class="com.test.java.auth.CustomLoginSuccessHandler"></bean>
 	
-	<!-- 12-1. PasswordEncoder bean -->
-	<bean id="customNoOpPasswordEncoder" class="com.test.java.auth.CustomNoOpPasswordEncoder"></bean>
+	<!-- 12-1. PasswordEncoder(임시) bean -->
+	<!-- <bean id="customNoOpPasswordEncoder" class="com.test.java.auth.CustomNoOpPasswordEncoder"></bean> -->
+	
+	<!-- 14. PasswordEncoder 만들기(정식) -->
+	<bean id="bCryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"></bean>
 	
 	<!-- 3. 기본 설정 -->
 	<!-- 
@@ -76,7 +79,7 @@
 		<security:authentication-provider>
 			<security:jdbc-user-service data-source-ref="dataSource"/>
 			<!-- 12-1. PasswordEncoder 추가 -->
-			<security:password-encoder ref="customNoOpPasswordEncoder"/> 
+			<!-- <security:password-encoder ref="customNoOpPasswordEncoder"/>  -->
 		</security:authentication-provider>
 	</security:authentication-manager> 
 	

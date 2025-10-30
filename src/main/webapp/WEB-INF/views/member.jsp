@@ -19,12 +19,23 @@
 	<div class="message" title="principal">
 		<sec:authentication property="principal"/>
 	</div>
+	<div class="message" title="principal.mdto">
+		<sec:authentication property="principal.mdto"/>
+	</div>
 	<div class="message" title="사용자 아이디">
 		<sec:authentication property="principal.username"/>
 	</div>
 	<div class="message" title="사용자 권한">
 		<sec:authentication property="principal.authorities"/>
 	</div>
-	
+	<div class="message" title="사용자 이름">
+		<sec:authentication property="principal.mdto.membername"/>
+	</div>
+	<div class="message" title="사용자 이메일">
+		<sec:authentication property="principal.mdto.email"/>
+	</div>	
+	<div class="message" title="사용자 성별">
+		<sec:authentication property="principal.mdto.gender"/>
+	</div>	
 </body>
 </html>

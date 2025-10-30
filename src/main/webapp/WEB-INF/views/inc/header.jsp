@@ -38,6 +38,7 @@
 		<sec:authorize access="hasRole('ROLE_ADMIN')">
 		<li><a href="/java/admin.do">Admin</a></li>
 		</sec:authorize>
+		
 		<li class="divider"></li>
 		
 		<sec:authorize access="isAnonymous()">
@@ -46,6 +47,12 @@
 		
 		<sec:authorize access="isAuthenticated()">
 		<li><a href="/java/customlogout.do">Logout</a></li>
+		</sec:authorize>
+		
+		<li class="divider"></li>
+		
+		<sec:authorize access="isAnonymous()">
+		<li><a href="/java/register.do">Register</a></li>
 		</sec:authorize>
 		
 	</ul>

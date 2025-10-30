@@ -65,3 +65,6 @@ select * from member_auth;
 select memberid as username, memberpw as password, enabled from member where memberid = 'cat';
 
 select memberid as username, auth as authority from member_auth where memberid = ?;
+
+delete from member where memberid='hong';
+commit;

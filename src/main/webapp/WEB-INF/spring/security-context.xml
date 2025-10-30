@@ -18,6 +18,9 @@
 	<!-- 14. PasswordEncoder 만들기(정식) -->
 	<bean id="bCryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"></bean>
 	
+	<!-- 18. 17번 기반 + 로그인 처리 + 인증 정보 관리 -->
+	<bean id="customUserDetailsService" class="com.test.java.auth.CustomUserDetailsService"></bean>
+	
 	<!-- 3. 기본 설정 -->
 	<!-- 
 	<security:http>
@@ -86,11 +89,20 @@
 	-->
 	
 	<!-- 16. 사용자가 직접 만든 구조의 스키마 사용(적용) -->
+	<!-- 
 	<security:authentication-manager> 
 		<security:authentication-provider>
 			<security:jdbc-user-service data-source-ref="dataSource" 
 			users-by-username-query="select memberid as username, memberpw as password, enabled from member where memberid = ?" 
 			authorities-by-username-query="select memberid as username, auth as authority from member_auth where memberid = ?" />
+			<security:password-encoder ref="bCryptPasswordEncoder"/>
+		</security:authentication-provider>
+	</security:authentication-manager> 
+	-->
+	
+	<!-- 18. 회원가입(17번) 기반 + 로그인 처리 + 인증 정보 관리 -->
+	<security:authentication-manager> 
+		<security:authentication-provider user-service-ref="customUserDetailsService">
 			<security:password-encoder ref="bCryptPasswordEncoder"/>
 		</security:authentication-provider>
 	</security:authentication-manager> 

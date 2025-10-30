@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- src/main/resources -> config -> address.xml -->
+<!-- XML Mapper -->
+<mapper namespace="com.test.java.model.MemberMapper">
+	<insert id="add" parameterType="com.test.java.model.MemberDTO">
+		insert into member (memberid, memberpw, membername, email, gender, enabled, regdate) 
+			values (#{memberid}, #{memberpw}, #{membername}, #{email}, #{gender}, default, default)
+	</insert>
+	
+	<insert id="addAuth" parameterType="com.test.java.model.AuthDTO">
+		insert into member_auth (memberid, auth) 
+			values (#{memberid}, #{auth})
+	</insert>
+	
+	<!-- 로그인 + 개인정보 반환 -->
+	<resultMap type="com.test.java.model.AuthDTO" id="authMap">
+		<result column="amemberid" property="memberid"/>
+		<result column="auth" property="auth"/>	
+	</resultMap>
+	
+	<resultMap type="com.test.java.model.MemberDTO" id="memberMap">
+		<id column="memberid" property="memberid"/>
+		<result column="memberpw" property="memberpw"/>
+		<result column="membername" property="membername"/>
+		<result column="email" property="email"/>
+		<result column="gender" property="gender"/>
+		<result column="enabled" property="enabled"/>
+		<result column="regdate" property="regdate"/>
+		<collection property="authList" resultMap="authMap" />
+	</resultMap>
+		
+	<select id="get" parameterType="String" resultMap="memberMap">
+		select 
+			m.*,
+			a.*,
+			m.memberid as memberid,
+			a.memberid as amemberid
+		from member m
+		inner join member_auth a
+			on m.memberid = a.memberid
+		where m.memberid = #{username}
+	</select>
+	
+</mapper>
